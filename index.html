@@ -1,137 +1,1 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <script src="d3.js" charset="utf-8"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
-
-    <title>Dashboard Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">CIS 550 Project</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Feeds</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">How You Stack Up</a>
-            </li>
-          </ul>
-          
-        </div>
-      </nav>
-    </header>
-
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Demographics <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Gender</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Orientation</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">City</a>
-            </li>
-          </ul>
-        </nav>
-
-        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-          <h1>Demographics</h1>
-
-          <section class="row text-center placeholders">
-            <script>
-
-            var width = 960,
-                height = 500,
-                radius = Math.min(width, height) / 2;
-
-            var color = d3.scale.category20();
-
-            var pie = d3.layout.pie()
-                .value(function(d) { return d.apples; })
-                .sort(null);
-
-            var arc = d3.svg.arc()
-                .innerRadius(radius - 100)
-                .outerRadius(radius - 20);
-
-            var svg = d3.select("body").append("svg")
-                .attr("width", width)
-                .attr("height", height)
-              .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-            d3.tsv("data.tsv", type, function(error, data) {
-              var path = svg.datum(data).selectAll("path")
-                  .data(pie)
-                .enter().append("path")
-                  .attr("fill", function(d, i) { return color(i); })
-                  .attr("d", arc);
-
-              d3.selectAll("input")
-                  .on("change", change);
-
-              var timeout = setTimeout(function() {
-                d3.select("input[value=\"oranges\"]").property("checked", true).each(change);
-              }, 2000);
-
-              function change() {
-                var value = this.value;
-                clearTimeout(timeout);
-                pie.value(function(d) { return d[value]; }); // change the value function
-                path = path.data(pie); // compute the new angles
-                path.attr("d", arc); // redraw the arcs
-              }
-            });
-
-            function type(d) {
-              d.apples = +d.apples;
-              d.oranges = +d.oranges;
-              return d;
-            }
-
-            </script>
-          </section>
-        </main>
-      </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../../../dist/js/bootstrap.min.js"></script>
-  </body>
-</html>
+<!DOCTYPE html><meta charset="utf-8"><head>  <title>Data</title><script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script><script src="Chart.bundle.js"></script><script src="utils.js"></script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></head><style>body {  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  margin: auto;  position: relative;  width: 960px;}text {  font: 10px sans-serif;}form {  position: absolute;  right: 10px;  top: 10px;}canvas {  -moz-user-select: none;  -webkit-user-select: none;  -ms-user-select: none;}</style><nav role="navigation" class="navbar navbar-static-top navbar-default">   <div class="container">      <div class="navbar-header">         <button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed">            <span class="sr-only">Toggle navigation</span>            <span class="icon-bar"></span>            <span class="icon-bar"></span>            <span class="icon-bar"></span>         </button>         <a href="#" class="navbar-brand">CIS550 Final Project</a>      </div>      <div id="navbar" class="collapse navbar-collapse">         <li><a href="/insert">OKCupid Information</a></li>         <li class="active"><a href="/reference">Zillow Information</a></li>      </div>   </div></nav><form>  <label><input type="radio" name="dataset" value="apples" checked> Apples</label>  <label><input type="radio" name="dataset" value="oranges"> Oranges</label></form><canvas id="myChart" width="400" height="400"></canvas><script>var ctx = document.getElementById("myChart");var myChart = new Chart(ctx, {    type: 'bar',    data: {        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],        datasets: [{            label: '# of Votes',            data: [12, 19, 3, 5, 2, 3],            backgroundColor: [                'rgba(255, 99, 132, 0.2)',                'rgba(54, 162, 235, 0.2)',                'rgba(255, 206, 86, 0.2)',                'rgba(75, 192, 192, 0.2)',                'rgba(153, 102, 255, 0.2)',                'rgba(255, 159, 64, 0.2)'            ],            borderColor: [                'rgba(255,99,132,1)',                'rgba(54, 162, 235, 1)',                'rgba(255, 206, 86, 1)',                'rgba(75, 192, 192, 1)',                'rgba(153, 102, 255, 1)',                'rgba(255, 159, 64, 1)'            ],            borderWidth: 1        }]    },    options: {        scales: {            yAxes: [{                ticks: {                    beginAtZero:true                }            }]        }    }});</script>
