@@ -20,11 +20,6 @@ body {
 text {
   font: 10px sans-serif;
 }
-form {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
 
 canvas {
   -moz-user-select: none;
@@ -58,9 +53,21 @@ canvas {
 </nav>
 <body> 
 
-<h1>OkCupid</h1>
-<p>From their website, OkCupid "uses math to find you dates." The data set from OkCupid that we used includeds variables such as but not limited to: location, sex, education, pets, kids, relationship status, income, diet, drinks, and body type.</p>
-
 </body>
+<h1>Compare yourself to our data</h1>
+<p>Input the following values below, and select a query to run on them!</p>
+<form action="/action_page.php" target="_blank">
+  City in CA that you live in or want to live in: <br>
+  <input type="text" name="city"> <br>
+  Age: <br>
+  <input type="text" name="Age"> <br>
+  Sex: <br>
+  <input type="text" name="Sex"> <br>
+  Orientation: <br>
+  <input type="text" name="Orientation"> <br>
+  Status: <br>
+  <input type="text" name="Status"> <br>
+  <input type="submit" value="Submit">
+</form>
 
-<a class="twitter-timeline" href= "https://twitter.com/okcupid?ref_src=twsrc%5Etfw" >Tweets by okcupid</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</html>
