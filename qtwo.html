@@ -52,3 +52,47 @@ canvas {
 </nav>
 
 <canvas id="myChart" width="400" height="400"></canvas>
+
+var dataPoints = [];
+var dataNames = [];
+
+<script type="text/javascript">
+    window.onload = function() {
+        var dataPoints = [];
+	 
+        function getDataPointsFromCSV(csv) {
+            var dataPoints = csvLines = points = [];
+            var dataNames = csvLines = points = [];
+
+            csvLines = csv.split(/[\r?\n|\r|\n]+/);         
+		        
+            for (var i = 0; i < csvLines.length; i++)
+                if (csvLines[i].length > 0) {
+                    points = csvLines[i].split(",");
+                    dataPoints.push({ 
+                        num: parseFloat(points[0]), 		
+                    });
+
+                    dataNames.push({ 
+                        name: String(points[1]), 		
+                    });
+                }
+            return dataPoints;
+        }
+	
+	$.get("http://ec2-54-210-222-18.compute-1.amazonaws.com/api/gender", function(data) {
+	    var chart = new CanvasJS.Chart("chartContainer", {
+		    title: {
+		         text: "Chart from CSV",
+		    },
+		    data: [{
+		         type: "line",
+		         dataPoints: getDataPointsFromCSV(data)
+		      }]
+	     });
+		
+	      chart.render();
+
+	});
+  }
+</script>
