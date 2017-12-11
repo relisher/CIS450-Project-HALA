@@ -50,5 +50,60 @@ canvas {
     </ul>
   </div>
 </nav>
-
+<p1> The grouped bar graph below shows the percentage of people under 20 using OkCupid compared to Zillow's data. </p1>
 <canvas id="myChart" width="400" height="400"></canvas>
+
+<script type="text/javascript">
+  var cityname = [];
+  var zillow20 = [];
+  var cupid20 = [];
+  function processData(input) {
+    var all = input.split(/\r\n|\n/);  
+    for (var i=1; i<all.length; i++) {
+        var data = all[i].split(',');
+        if (data[0]) {
+          cityname.push(data[0]);
+        }
+        if (data[1]) {
+           zillow20.push(data[1]);
+        } 
+        if (data[2]) {
+           cupid20.push(data[2]);
+        }
+    }
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+        url: "http://ec2-54-210-222-18.compute-1.amazonaws.com/api/young-location"
+    }).then(function(data) {
+      //alert(data);
+      processData(data);
+    });
+});
+
+
+  new Chart(document.getElementById("myChart"), {
+    type: 'bar',
+    data: {
+      labels: cityname,
+      datasets: [
+        {
+          label: "People under 20",
+          backgroundColor: "#3e95cd",
+          data: zillow20
+        }, {
+          label: "People under 20 on OkCupid",
+          backgroundColor: "#8e5ea2",
+          data: cupid20
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Percentage'
+      }
+    }
+});
+</script>

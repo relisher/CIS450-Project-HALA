@@ -32,7 +32,6 @@ canvas {
   -ms-user-select: none;
 }
 </style>
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -44,12 +43,83 @@ canvas {
       <li><a href="compare.html">Compare Yourself</a></li>
       <li><a href="qone.html">Query 1</a></li>
       <li><a href="qtwo.html">Query 2</a></li>
-      <li><a href="qthree.html">Query 3</a></li>
-      <li class="active"><a href="qfour.html">Query 4</a></li>
+      <li><a href="qfour.html">Query 3</a></li>
+      <li class="active"><a href="qthree.html">Query 4</a></li>
       <li><a href="qfive.html">Query 5</a></li>
       <li><a href="qsix.html">Query 6</a></li>
     </ul>
   </div>
 </nav>
+<p1> The bar graph below shows the number of married men, married women, single men, and single women on OkCupid in CA. </p1>
 
 <canvas id="myChart" width="400" height="400"></canvas>
+<script>
+  var cityname = [];
+  var income = [];
+  var per = [];
+  function processData(input) {
+    var all = input.split(/\r\n|\n/);    
+    for (var i=1; i<all.length; i++) {
+        var data = all[i].split(',');
+        if (data[0]) {
+          cityname.push(data[0]);
+        }
+        if (data[1]) {
+           income.push(data[1]);
+        } 
+        if (data[2]) {
+           per.push(data[2]);
+        }
+    }
+   //alert(income); // THIS WORKS
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+        url: "http://ec2-54-210-222-18.compute-1.amazonaws.com/api/lgbtq-demographic"
+    }).then(function(data) {
+      //alert(data);
+      processData(data);
+      //alert(income); //THIS DOESN'T
+    });
+});
+  ///alert(income) // THIS DOESN'T
+  var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+    type: 'scatter',
+   data: {
+      labels: cityname, //YET THIS WORKS
+      datasets: [{
+         label: 'Legend',
+         fill: false,
+         lineTension: 0,
+         data: [{
+            x: 5,
+            y: 3,
+         }, {
+            x: 0,
+            y: 10
+         }, {
+            x: 10,
+            y: 5
+         }, {
+            x: 15,
+            y: 5
+         }, {
+            x: 10,
+            y: 15
+         }]
+      }]
+   },
+   options: {
+      tooltips: {
+         callbacks: {
+            label: function(tooltipItem, data) {
+               var label = data.labels[tooltipItem.index];
+               return label + ': (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
+            }
+         }
+      }
+   }
+      });
+  </script>
