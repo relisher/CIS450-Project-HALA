@@ -50,5 +50,69 @@ canvas {
     </ul>
   </div>
 </nav>
+<p1> The bar graph below shows the number of married men, married women, single men, and single women on OkCupid in CA. </p1>
 
 <canvas id="myChart" width="400" height="400"></canvas>
+<script>
+  var descriptor = [];
+  var num = [];
+  function processData(input) {
+    var all = input.split(/\r\n|\n/);    
+    for (var i=1; i<all.length; i++) {
+        var data = all[i].split(',');
+        if (data[0]) {
+          num.push(data[0]);
+        }
+        if (data[1]) {
+           descriptor.push(data[1]);
+        } 
+    }
+    //alert(descriptor);
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+        url: "http://ec2-54-210-222-18.compute-1.amazonaws.com/api/gender-married"
+    }).then(function(data) {
+      //alert(data);
+      processData(data);
+    });
+});
+  var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: descriptor,
+        datasets: [{
+            label: 'people',
+            data: num,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+             
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+              
+            ],
+            borderWidth: 1
+         }]
+      },
+       options: {
+
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+
+        }
+      });
+  </script>
