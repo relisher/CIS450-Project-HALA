@@ -84,9 +84,18 @@ FB.getLoginStatus(function(response) {
   }
 });
 </script>
+<script>
+  $(document).ready(function() {
+    $.ajax({
+        url: "http://ec2-54-210-222-18.compute-1.amazonaws.com/api/gender-married"
+    }).then(function(data) {
+      alert(data);
+    });
+});
+  </script>
 
 <body>
-<script>
+  <script>
 // Only works after `FB.init` is called
 function myFacebookLogin() {
   FB.login(function(){}, {scope: 'publish_actions'});
@@ -96,3 +105,4 @@ function myFacebookLogin() {
 </body>
 </html>
 
+B
