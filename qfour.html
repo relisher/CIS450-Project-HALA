@@ -35,7 +35,7 @@ canvas {
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">CIS 450 Final Project</a>
+      <a class="navbar-brand" href="index.html">CIS 450 Final Project</a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="Zillow.html">Zillow</a></li>
@@ -50,7 +50,7 @@ canvas {
     </ul>
   </div>
 </nav>
-<p1> The bar graph below shows the number of married men, married women, single men, and single women on OkCupid in CA. </p1>
+<p1> The bar graph below shows the average income of one of the top 5 cities in California charted against percent LGBTQ in that city. </p1>
 
 <canvas id="myChart" width="400" height="400"></canvas>
 <script>
@@ -65,13 +65,13 @@ canvas {
           cityname.push(data[0]);
         }
         if (data[1]) {
-           income.push(data[1]);
+           income.push(parseInt(data[1]));
         } 
         if (data[2]) {
-           per.push(data[2]);
+           per.push(parseInt(data[2]));
         }
     }
-   //alert(income); // THIS WORKS
+   //alert(income[0]); // THIS WORKS
   }
 
   $(document).ready(function() {
@@ -80,35 +80,56 @@ canvas {
     }).then(function(data) {
       //alert(data);
       processData(data);
-      //alert(income); //THIS DOESN'T
+      //alert(income);
     });
 });
-  ///alert(income) // THIS DOESN'T
+  ///alert(income) 
   var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
-    type: 'scatter',
+    type: 'bubble',
    data: {
-      labels: cityname, //YET THIS WORKS
+      labels: cityname, 
       datasets: [{
          label: 'Legend',
          fill: false,
          lineTension: 0,
          data: [{
-            x: 5,
-            y: 3,
+            x: 55221,
+            y: 0.15947843530591777,
+            r: 10
          }, {
-            x: 0,
-            y: 10
+            x: 50030,
+            y: 0.041666666666666664,
+            r: 10
          }, {
-            x: 10,
-            y: 5
+            x: 40055,
+            y: 0.21710526315789475,
+            r: 10
          }, {
-            x: 15,
-            y: 5
+            x: 60994,
+            y: 0.17391304347826086,
+            r: 10
          }, {
-            x: 10,
-            y: 15
-         }]
+            x: 63238,
+            y: 0.07317073170731707,
+            r: 10
+         }], 
+         backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
       }]
    },
    options: {
