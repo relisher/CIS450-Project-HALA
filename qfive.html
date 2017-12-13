@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Data</title>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="Chart.bundle.js"></script>
+<script src="utils.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+</head>
+<style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 960px;
+}
+text {
+  font: 10px sans-serif;
+}
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+</style>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="frontpage.html">CIS 450 Final Project</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="Zillow.html">Zillow</a></li>
+      <li><a href="OkCupid.html">OkCupid</a></li>
+      <li><a href="compare.html">Compare Yourself</a></li>
+      <li><a href="qone.html">Query 1</a></li>
+      <li><a href="qtwo.html">Query 2</a></li>
+      <li><a href="qthree.html">Query 3</a></li>
+      <li><a href="qfour.html">Query 4</a></li>
+      <li class="active"><a href="qfive.html">Query 5</a></li>
+      <li><a href="qsix.html">Query 6</a></li>
+    </ul>
+  </div>
+</nav>
+<p1> The grouped bar graph below shows the percentage of people under 20 using OkCupid compared to Zillow's data. </p1>
+<canvas id="myChart" width="400" height="400"></canvas>
+
+<script type="text/javascript">
+  var cityname = [];
+  var zillow20 = [];
+  var cupid20 = [];
+  function processData(input) {
+    var all = input.split(/\r\n|\n/);  
+    for (var i=1; i<all.length; i++) {
+        var data = all[i].split(',');
+        if (data[0]) {
+          cityname.push(data[0]);
+        }
+        if (data[1]) {
+           zillow20.push(data[1]);
+        } 
+        if (data[2]) {
+           cupid20.push(data[2]);
+        }
+    }
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+        url: "http://ec2-54-210-222-18.compute-1.amazonaws.com/api/young-location"
+    }).then(function(data) {
+      //alert(data);
+      processData(data);
+    });
+});
+
+
+  new Chart(document.getElementById("myChart"), {
+    type: 'bar',
+    data: {
+      labels: cityname,
+      datasets: [
+        {
+          label: "People under 20",
+          backgroundColor: "#3e95cd",
+          data: zillow20
+        }, {
+          label: "People under 20 on OkCupid",
+          backgroundColor: "#8e5ea2",
+          data: cupid20
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Percentage'
+      }
+    }
+});
+</script>
