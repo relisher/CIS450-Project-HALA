@@ -51,14 +51,31 @@ canvas {
 </body>
 <h1>Compare yourself to our data</h1>
 <p>Input the following values below, and select a query to run on them!</p>
-<form action="/action_page.php" target="_blank">
-  City in CA, in all lowercase, followed by ", california": <br>
-  <input type="text" name="City"> <br>
-  Age: <br>
-  <input type="text" name="Age"> <br>
-  Income: <br>
-  <input type="text" name="Income"> <br>
-  <input type="submit" value="Submit">
+
+<form>
+  <div>
+    <label for="age">Age:</label>
+    <input type="number" name="age" id="age">
+
+    <label for="income">Income:</label>
+    <input type="number" name="income" id="income">
+
+    <label for="city">City:</label>
+    <select name="city" id="city">
+        <option value="lb">long beach, california</option>
+        <option value="sf">san francisco, california</option>
+        <option value="la">los angeles, california</option>
+        <option value="oakland">oakland, california</option>
+        <option value="sd">san diego, california</option>
+        <option value="sm">santa monica, california</option>
+        <option value="napa">napa, california</option>
+        <option value="irvine">irvine, california</option>
+        <option value="pasedena">pasedena, california</option>
+    </select>
+    </div>
+    <div>
+      <input type="submit">
+    </div>
 </form>
 
 </html>
