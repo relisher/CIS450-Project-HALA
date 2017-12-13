@@ -71,9 +71,8 @@ canvas {
            per.push(parseInt(data[2]));
         }
     }
-   //alert(income[0]); // THIS WORKS
+   alert(income); // THIS WORKS
   }
-
   $(document).ready(function() {
     $.ajax({
         url: "http://ec2-54-210-222-18.compute-1.amazonaws.com/api/lgbtq-demographic"
@@ -83,10 +82,9 @@ canvas {
       //alert(income);
     });
 });
-  ///alert(income) 
   var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-    type: 'bubble',
+  var myChart = new Chart(ctx, {
+  type: 'bubble',
    data: {
       labels: cityname, 
       datasets: [{
@@ -140,6 +138,20 @@ canvas {
                return label + ': (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
             }
          }
+      },
+        scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Percent LGBTQ'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Income'
+          }
+        }]
       }
    }
       });
