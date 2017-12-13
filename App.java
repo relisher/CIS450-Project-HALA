@@ -37,7 +37,9 @@ public class App
     	//married();
     	//marriedlocation();
     	//lgbtqlocation();
-    	youngusers();
+    	//youngusers();
+    	dincome("san francisco, california", 40000);
+    	dage("san francisco, california", 40);
     }
     public static void initiate(){
     	client = AmazonDynamoDBClientBuilder.standard()
@@ -563,6 +565,53 @@ public class App
 				sb.append("san rafael" + ","+ (Double.toString(Double.parseDouble(result14.getItems().get(0).get("per20s").getN().toString())*100)) +"," + (double)(result4.getCount())*100/59000 + "\n");
 				sb.append("walnut creek" + ","+ (Double.toString(Double.parseDouble(result15.getItems().get(0).get("per20s").getN().toString())*100)) +"," + (double)(result5.getCount())*100/69000 + "\n");
 
+		System.out.println(sb.toString());
+		return sb.toString();
+    }
+    
+    
+    public static String dincome(String inputcity, int inputincome){
+    	StringBuilder sb = new StringBuilder();
+    	//sb.append("count,descriptor\n");
+		Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
+		expressionAttributeValues.put(":city", new AttributeValue().withS(inputcity));  
+		ScanRequest scanRequest = new ScanRequest()
+		   // .withTableName("OkCupid")
+			.withTableName("Zillow")
+		    .withFilterExpression("city = :city")
+		    .withExpressionAttributeValues(expressionAttributeValues);
+		
+		ScanResult result = client.scan(scanRequest);
+		//System.out.println(result);
+		sb.append("Your income is " 
+				+ Integer.toString(inputincome) 
+				+ " and the average median household income in your city " 
+				+ inputcity + " is " 
+				+ result.getItems().get(0).get("MedianHouseholdIncome").getN().toString() +"\n");
+		//System.out.println("Your income is " + Integer.toString(inputincome) + 
+			//	" and the average median household income in your city " + inputcity + " is " + 
+				//result.getItems().get(0).get("MedianHouseholdIncome").getN().toString() 
+				//+"\n");
+		System.out.println(sb.toString());
+		return sb.toString();
+    }
+    
+    public static String dage(String inputcity, int inputage){
+    	StringBuilder sb = new StringBuilder();
+    	//sb.append("count,descriptor\n");
+		Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
+		expressionAttributeValues.put(":city", new AttributeValue().withS(inputcity));  
+		ScanRequest scanRequest = new ScanRequest()
+		   // .withTableName("OkCupid")
+			.withTableName("Zillow")
+		    .withFilterExpression("city = :city")
+		    .withExpressionAttributeValues(expressionAttributeValues);
+		
+		ScanResult result = client.scan(scanRequest);
+		//System.out.println(result);
+		sb.append("Your age is " + Integer.toString(inputage) + 
+				" and the average age in your city " + inputcity + " is " 
+				+ result.getItems().get(0).get("MedianAge").getN().toString() +"\n");
 		System.out.println(sb.toString());
 		return sb.toString();
     }
