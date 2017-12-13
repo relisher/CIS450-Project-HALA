@@ -46,13 +46,13 @@ canvas {
   </div>
 </nav>
 
-<body> 
+<body>
 
 </body>
 <h1>Compare yourself to our data</h1>
 <p>Input the following values below, and select a query to run on them!</p>
 
-<form>
+<form id="js-upload-form" onsubmit="return false">
   <div>
     <label for="age">Age:</label>
     <input type="number" name="age" id="age">
@@ -62,20 +62,41 @@ canvas {
 
     <label for="city">City:</label>
     <select name="city" id="city">
-        <option value="lb">long beach, california</option>
-        <option value="sf">san francisco, california</option>
-        <option value="la">los angeles, california</option>
-        <option value="oakland">oakland, california</option>
-        <option value="sd">san diego, california</option>
-        <option value="sm">santa monica, california</option>
-        <option value="napa">napa, california</option>
-        <option value="irvine">irvine, california</option>
-        <option value="pasedena">pasedena, california</option>
+        <option value="long beach, california">long beach, california</option>
+        <option value="san francisco, california">san francisco, california</option>
+        <option value="los angeles, california">los angeles, california</option>
+        <option value="oakland, california">oakland, california</option>
+        <option value="san diego, california">san diego, california</option>
+        <option value="santa monica, california">santa monica, california</option>
+        <option value="napa, california">napa, california</option>
+        <option value="irvine, california">irvine, california</option>
+        <option value="pasedena, california">pasedena, california</option>
     </select>
     </div>
     <div>
-      <input type="submit">
+      <input type="button" value="Submit" onClick='submitDetailsForm()'>
     </div>
 </form>
+
+<p id="test"> test </p>
+
+<script>
+
+function submitDetailsForm() {
+  var income = document.getElementById('income').value;
+  var age = document.getElementById('age').value;
+  var city = encodeURI(document.getElementById('city').value);
+  $.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicOne?age='+age+'&city='+city,
+   function(returnedData){
+      alert(returnedData);
+    }, 'json');
+    $.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicTwo?income='+income+'&city='+city,
+     function(returnedData){
+        alert(returnedData);
+      }, 'json');
+}
+
+
+</script>
 
 </html>

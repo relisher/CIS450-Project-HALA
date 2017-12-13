@@ -1,7 +1,0 @@
-[{"request": {"state": {"$": "ca"}, "city": {"$": "marin city"}}, "message": {"text": {"$": "Error: region not found"}, "code": {"$": 502}}},
-{"request": {"state": {"$": "ca"}, "city": {"$": "hilarita"}}, "message": {"text": {"$": "Error: region not found"}, "code": {"$": 502}}},
-{"request": {"state": {"$": "ca"}, "city": {"$": "bayshore"}}, "message": {"text": {"$": "Error: region not found"}, "code": {"$": 502}}},
-{"request": {"state": {"$": "ca"}, "city": {"$": "glencove"}}, "message": {"text": {"$": "Error: region not found"}, "code": {"$": 502}}},
-{"request": {"state": {"$": "ca"}, "city": {"$": "west oakland"}}, "message": {"text": {"$": "Error: region not found"}, "code": {"$": 502}}},
-{"request": {"state": {"$": "ca"}, "city": {"$": "redwood shores"}}, "message": {"text": {"$": "Error: region not found"}, "code": {"$": 502}}},
-{"request": {"state": {"$": "ca"}, "city": {"$": "green brae"}}, "message": {"text": {"$": "Error: region not found"}, "code": {"$": 502}}}]
