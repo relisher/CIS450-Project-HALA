@@ -38,8 +38,9 @@ public class App
     	//marriedlocation();
     	//lgbtqlocation();
     	//youngusers();
-    	dincome("san francisco, california", 40000);
-    	dage("san francisco, california", 40);
+    	//dincome("san francisco, california", 40000);
+    	//dage("san francisco, california", 40);
+    	dheightlocation(0);
     }
     public static void initiate(){
     	client = AmazonDynamoDBClientBuilder.standard()
@@ -262,7 +263,7 @@ public class App
 				.withTableName("OkCupid")
 				.withFilterExpression("cupidstatus = :married AND cupidlocation <> :sanfran "
 			    		+ "AND cupidlocation <> :sanjose AND cupidlocation <> :oakland "
-			    		+ "AND cupidlocation = :sanrafael AND cupidlocation <> :walnutcreek")				
+			    		+ "AND cupidlocation <> :sanrafael AND cupidlocation = :walnutcreek")				
 				.withExpressionAttributeValues(expressionAttributeValues);
 							
 		ScanResult result5 = client.scan(scanRequest5);
@@ -326,7 +327,7 @@ public class App
 				.withTableName("OkCupid")
 				.withFilterExpression("orientation = :orientation AND cupidlocation <> :sanfran "
 			    		+ "AND cupidlocation <> :sanjose AND cupidlocation <> :oakland "
-			    		+ "AND cupidlocation = :sanrafael AND cupidlocation <> :walnutcreek")				
+			    		+ "AND cupidlocation <> :sanrafael AND cupidlocation = :walnutcreek")				
 				.withExpressionAttributeValues(expressionAttributeValues);
 							
 		ScanResult result5 = client.scan(scanRequest5);
@@ -500,7 +501,7 @@ public class App
 				.withTableName("OkCupid")
 				.withFilterExpression("age < :age AND cupidlocation <> :sanfran "
 			    		+ "AND cupidlocation <> :sanjose AND cupidlocation <> :oakland "
-			    		+ "AND cupidlocation = :sanrafael AND cupidlocation <> :walnutcreek")				
+			    		+ "AND cupidlocation <> :sanrafael AND cupidlocation = :walnutcreek")				
 				.withExpressionAttributeValues(expressionAttributeValues);
 							
 		ScanResult result5 = client.scan(scanRequest5);
@@ -612,6 +613,73 @@ public class App
 		sb.append("Your age is " + Integer.toString(inputage) + 
 				" and the average age in your city " + inputcity + " is " 
 				+ result.getItems().get(0).get("MedianAge").getN().toString() +"\n");
+		System.out.println(sb.toString());
+		return sb.toString();
+    }
+    
+    public static String dheightlocation(int inputheight){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("count,descriptor\n");
+		Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
+		expressionAttributeValues.put(":height", new AttributeValue().withN(Integer.toString(inputheight)));  
+		expressionAttributeValues.put(":sanfran", new AttributeValue().withS("san francisco, california"));  
+		expressionAttributeValues.put(":sanjose", new AttributeValue().withS("vallejo, california"));
+		expressionAttributeValues.put(":oakland", new AttributeValue().withS("oakland, california"));
+		expressionAttributeValues.put(":sanrafael", new AttributeValue().withS("san rafael, california"));
+		expressionAttributeValues.put(":walnutcreek", new AttributeValue().withS("walnut creek, california"));
+		ScanRequest scanRequest = new ScanRequest()
+		  //.withTableName("OkCupid")
+			.withTableName("OkCupid")
+		    .withFilterExpression("height > :height AND cupidlocation = :sanfran "
+		    		+ "AND cupidlocation <> :sanjose AND cupidlocation <> :oakland "
+		    		+ "AND cupidlocation <> :sanrafael AND cupidlocation <> :walnutcreek")
+		    .withExpressionAttributeValues(expressionAttributeValues);
+		ScanResult result = client.scan(scanRequest);
+		sb.append(result.getCount().toString() + ","+"taller than " + inputheight +" in san francisco\n");
+		//san francisco, oakland, vallejo, san rafael, walnut creek
+		ScanRequest scanRequest2 = new ScanRequest()
+				   // .withTableName("OkCupid")
+			.withTableName("OkCupid")
+			.withFilterExpression("height > :height AND cupidlocation <> :sanfran "
+		    		+ "AND cupidlocation = :sanjose AND cupidlocation <> :oakland "
+		    		+ "AND cupidlocation <> :sanrafael AND cupidlocation <> :walnutcreek")
+			.withExpressionAttributeValues(expressionAttributeValues);
+				
+		ScanResult result2 = client.scan(scanRequest2);
+		sb.append(result2.getCount().toString() + "," +"taller than " + inputheight +" in vallejo\n");
+		
+		ScanRequest scanRequest3 = new ScanRequest()
+			// .withTableName("OkCupid")
+			.withTableName("OkCupid")
+			.withFilterExpression("height > :height AND cupidlocation <> :sanfran "
+		    		+ "AND cupidlocation <> :sanjose AND cupidlocation = :oakland "
+		    		+ "AND cupidlocation <> :sanrafael AND cupidlocation <> :walnutcreek")			
+			.withExpressionAttributeValues(expressionAttributeValues);
+						
+		ScanResult result3 = client.scan(scanRequest3);
+		sb.append(result3.getCount().toString() + ","+"taller than " + inputheight +" in oakland\n");
+		ScanRequest scanRequest4 = new ScanRequest()
+				// .withTableName("OkCupid")
+				.withTableName("OkCupid")
+				.withFilterExpression("height > :height AND cupidlocation <> :sanfran "
+			    		+ "AND cupidlocation <> :sanjose AND cupidlocation <> :oakland "
+			    		+ "AND cupidlocation = :sanrafael AND cupidlocation <> :walnutcreek")				
+				.withExpressionAttributeValues(expressionAttributeValues);
+							
+		ScanResult result4 = client.scan(scanRequest4);
+		sb.append(result4.getCount().toString() + ","+"taller than " + inputheight +" in san rafael\n");
+		
+		ScanRequest scanRequest5 = new ScanRequest()
+				// .withTableName("OkCupid")
+				.withTableName("OkCupid")
+				.withFilterExpression("height > :height AND cupidlocation <> :sanfran "
+			    		+ "AND cupidlocation <> :sanjose AND cupidlocation <> :oakland "
+			    		+ "AND cupidlocation <> :sanrafael AND cupidlocation = :walnutcreek")				
+				.withExpressionAttributeValues(expressionAttributeValues);
+							
+		ScanResult result5 = client.scan(scanRequest5);
+		sb.append(result5.getCount().toString() + ","+"taller than " + inputheight +" in walnut creek\n");
+		
 		System.out.println(sb.toString());
 		return sb.toString();
     }
