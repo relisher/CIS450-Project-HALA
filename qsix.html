@@ -20,11 +20,6 @@ body {
 text {
   font: 10px sans-serif;
 }
-form {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
 
 canvas {
   -moz-user-select: none;
@@ -50,5 +45,89 @@ canvas {
     </ul>
   </div>
 </nav>
-<p1> We need a query for this! </p1>
+
+<body>
+
+</body>
+<h1>Compare yourself to our data</h1>
+<p>Input the following values below, and select a query to run on them!</p>
+
+<form id="js-upload-form" onsubmit="return false">
+  <div>
+    <label for="height">Height:</label>
+    <input type="number" name="height" id="height">
+    </div>
+    <div>
+      <input type="button" value="Submit" onClick='submitDetailsForm()'>
+    </div>
+</form>
 <canvas id="myChart" width="400" height="400"></canvas>
+
+<script>
+  var descriptor = [];
+  var num = [];
+  function processData(input) {
+    var all = input.split(/\r\n|\n/);    
+    for (var i=1; i<all.length; i++) {
+        var data = all[i].split(',');
+        if (data[0]) {
+          num.push(data[0]);
+        }
+        if (data[1]) {
+           descriptor.push(data[1]);
+        } 
+    }
+    //alert(descriptor);
+  }
+function submitDetailsForm() {
+  var height = document.getElementById('height').value;
+
+  $(document).ready(function() {
+    $.ajax({
+        url: 'http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicThree?height='+height
+    }).then(function(data) {
+      alert(data);
+      processData(data);
+    });
+  });
+}
+  var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: descriptor,
+        datasets: [{
+            label: 'number of people taller',
+            data: num,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+             
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+              
+            ],
+            borderWidth: 1
+         }]
+      },
+       options: {
+
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+
+        }
+      });
+
+</script>
+</html>
