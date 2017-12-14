@@ -33,15 +33,16 @@ canvas {
       <a class="navbar-brand" href="frontpage.html">CIS 450 Final Project</a>
     </div>
     <ul class="nav navbar-nav">
+      <li><a href="frontpage.html">Log In</a></li>
       <li><a href="Zillow.html">Zillow</a></li>
       <li><a href="OkCupid.html">OkCupid</a></li>
-      <li class="active"><a href="compare.html">Compare Yourself</a></li>
-      <li><a href="qone.html">Query 1</a></li>
-      <li><a href="qtwo.html">Query 2</a></li>
-      <li><a href="qthree.html">Query 3</a></li>
-      <li><a href="qfour.html">Query 4</a></li>
-      <li><a href="qfive.html">Query 5</a></li>
-      <li><a href="qsix.html">Query 6</a></li>
+      <li class="active"><a href="compare.html">Compare to Income and Age</a></li>
+      <li><a href="qone.html">Number of Straight and non-Straight</a></li>
+      <li><a href="qtwo.html">Location of Married People</a></li>
+      <li><a href="qthree.html">Number of Married</a></li>
+      <li><a href="qfour.html">Income vs. Percent LGBTQ</a></li>
+      <li><a href="qfive.html">People under 20</a></li>
+      <li><a href="qsix.html">Compare to Height</a></li>
     </ul>
   </div>
 </nav>
@@ -100,13 +101,6 @@ function submitDetailsForm() {
       alert(data);
     });
   });
-
-
-  //$.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicOne?age='+age+'&city='+city, function() {
- // alert( "success" );},'json');
-
-
-  //$.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicTwo?income='+income+'&city='+city,'json');
 }
 
 
