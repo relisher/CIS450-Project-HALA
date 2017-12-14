@@ -78,25 +78,37 @@ canvas {
     </div>
 </form>
 
-<p id="test"> test </p>
-
 <script>
 
 function submitDetailsForm() {
   var income = document.getElementById('income').value;
   var age = document.getElementById('age').value;
   var city = encodeURI(document.getElementById('city').value);
-  $.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicOne?age='+age+'&city='+city,
-   function(returnedData){
-      alert(returnedData);
-    }, 'json');
-    $.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicTwo?income='+income+'&city='+city,
-     function(returnedData){
-        alert(returnedData);
-      }, 'json');
+
+  $(document).ready(function() {
+    $.ajax({
+        url: 'http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicOne?age='+age+'&city='+city
+    }).then(function(data) {
+      alert(data);
+    });
+  });
+
+   $(document).ready(function() {
+    $.ajax({
+        url: 'http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicTwo?income='+income+'&city='+city
+    }).then(function(data) {
+      alert(data);
+    });
+  });
+
+
+  //$.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicOne?age='+age+'&city='+city, function() {
+ // alert( "success" );},'json');
+
+
+  //$.post('http://ec2-54-210-222-18.compute-1.amazonaws.com/api/dynamicTwo?income='+income+'&city='+city,'json');
 }
 
 
 </script>
-
 </html>
